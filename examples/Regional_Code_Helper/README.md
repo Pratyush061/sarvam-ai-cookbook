@@ -1,83 +1,79 @@
-# AI Coding Assistant for Indian Students
+# Sarvam Talk - Code Explainer
 
-A powerful AI-powered coding assistant designed to support students in regional colleges and schools across India. Built using Sarvam AI's advanced language models, it provides comprehensive programming help in multiple Indian languages and English.
+A modern web application built with Next.js App Router, React, and Tailwind CSS. It helps users understand code in English or Hindi, both as text and spoken audio using the Sarvam AI API.
 
 ## Features
 
-- 📚 Explain programming concepts in simple, clear language
-- 🐛 Debug code snippets with detailed explanations
-- 💻 Provide code samples with step-by-step explanations
-- 🌐 Support for multiple Indian languages
-- 🎯 Interactive web interface with real-time responses
-- 🔄 Context-aware assistance
+- 🧠 **Code Explanation**: Get clear, structured explanations of code snippets.
+- 🗣️ **Voice AI Output**: Listen to the explanation using Sarvam Text-to-Speech (TTS).
+- 🌐 **Multilingual Support**: Supports English (`en-IN`) and Hindi (`hi-IN`).
+- 🔐 **Secure Key Management**: Validates and uses your own Sarvam API key entirely in memory/session. It is never persisted or logged.
+- 📱 **Responsive Design**: Mobile-friendly layout and tactile controls.
+- 🧩 **Chrome Extension Companion**: Highlight code anywhere on the web and send it to the explainer.
 
-## Getting Started
+## Architecture
+
+This project replaces the legacy Streamlit app (now located in `legacy-streamlit/`) with a robust production-ready stack:
+
+- **Frontend**: Next.js 14 App Router, React, Tailwind CSS, Lucide Icons.
+- **Backend API Routes**: Secure endpoints for key validation (`/api/validate-key`), code analysis (`/api/explain`), and TTS generation (`/api/tts`).
+- **Testing**: Vitest + React Testing Library for unit tests. Playwright for End-to-End browser testing across viewports.
+
+## Local Setup
 
 ### Prerequisites
+- Node.js 18+
+- A [Sarvam AI](https://dashboard.sarvam.ai) API Key
 
-- Python 3.7 or higher
-- A Sarvam AI API key
-- Internet connection
+### Installation
 
-### Getting Your API Key
+1. Navigate to the project directory:
+   `cd examples/Regional_Code_Helper`
 
-1. Visit [Sarvam AI Dashboard](https://dashboard.sarvam.ai/)
-2. Sign up for a new account
-3. Get 1,000 free credits upon signup
-4. Navigate to the API Keys section to generate your key
+2. Install dependencies:
+   `npm install`
 
-## Installation
+3. Setup environment (optional):
+   You can provide your API key in the browser UI. Alternatively, you can add it to a `.env.local` file for local development:
+   `SARVAM_API_KEY=your_api_key_here`
 
-1. Clone this repository:
+### Development
 
-```bash
-git clone https://github.com/sarvamai/sarvam-ai-cookbook/regional-code-helper.git
-cd regional-code-helper
-```
+Run the development server:
 
-2. Install the required dependencies:
+`npm run dev`
 
-```bash
-pip install -r requirements.txt
-```
+Open http://localhost:3000 in your browser.
 
-3. Create a `.env` file in the project root and add your Sarvam API key:
+### Testing
 
-```bash
-SARVAM_API_KEY=your_api_key_here
-```
+Run unit and integration tests:
+`npm run test`
 
-## Running the Application
+Run End-to-End Playwright tests:
+`npm run test:e2e`
 
-1. Start the Streamlit application:
-   ```bash
-   streamlit run coding_assistant.py
-   ```
-2. Open your web browser and navigate to the URL shown in the terminal (usually http://localhost:8501)
+### Production Build
 
-## Usage
+Create an optimized build:
+`npm run build`
+`npm run start`
 
-1. Select your preferred language from the dropdown menu
-2. Choose the feature you want to use:
-   - Explain a Concept: Get explanations of programming concepts
-   - Debug Code: Get help with debugging your code
-   - Get Code Sample: Request code samples for specific topics
+## Chrome Extension Companion
 
-## Supported Languages
+The `extension/` directory contains a minimal Manifest V3 Chrome Extension.
 
-- English (en)
-- Hindi (hi)
-- Tamil (ta)
-- Telugu (te)
-- Bengali (bn)
-- Kannada (kn)
+### Installation
+1. Go to `chrome://extensions` in Google Chrome.
+2. Enable **Developer mode**.
+3. Click **Load unpacked** and select the `examples/Regional_Code_Helper/extension` folder.
 
-## Additional Resources
+**Usage:** Select code on any webpage, right click, and select "Explain selected code with Sarvam". It will open the web application with the code ready for explanation.
 
-- **Documentation**: [docs.sarvam.ai](https://docs.sarvam.ai/)
-- **Community**: [Join the Discord Community](https://discord.gg/hTuVuPNF)
-- **API Dashboard**: [dashboard.sarvam.ai](https://dashboard.sarvam.ai/)
+## Security & Privacy
 
-## License
+- **API Keys**: Keys are input directly into the settings dialog. They are stored in `sessionStorage` strictly during your session, and passed via secure Headers to server-side Next.js route handlers. They are never exposed to the client bundle or sent to third-parties other than Sarvam.
+- **Source Code**: Code is sent exclusively to the Sarvam Chat Completion API to generate explanations. It is not logged or persisted by the server.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+---
+*Legacy Streamlit code is preserved in `legacy-streamlit/` for reference purposes.*
