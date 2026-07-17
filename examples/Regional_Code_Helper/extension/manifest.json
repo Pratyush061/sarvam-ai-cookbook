@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Sarvam Talk - Code Explainer",
+  "version": "1.0",
+  "description": "Send selected code to the Sarvam Talk web application for AI explanation.",
+  "permissions": ["contextMenus", "activeTab"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
